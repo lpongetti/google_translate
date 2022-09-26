@@ -1,7 +1,8 @@
 name: google_translate
-description: A new Flutter package project.
+description: Google Translate API for Dart.
 version: 0.0.1
-homepage:
+
+homepage: https://github.com/lpongetti/google_translate
 
 environment:
   sdk: ">=2.18.1 <3.0.0"
