@@ -21,3 +21,6 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+
+false_secrets:
+  - "/example/lib/main.dart"
