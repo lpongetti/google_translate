@@ -1,6 +1,6 @@
 # Google translate
 
-[![pub package](https://img.shields.io/pub/v/flutter_map_marker_cluster.svg)](https://pub.dartlang.org/packages/google_translate) ![travis](https://api.travis-ci.com/lpongetti/google_translate.svg?branch=master)
+[![pub package](https://img.shields.io/pub/v/google_translate.svg)](https://pub.dartlang.org/packages/google_translate) ![travis](https://api.travis-ci.com/lpongetti/google_translate.svg?branch=master)
 
 Google Translate API for Dart.
 
