@@ -1,26 +1,52 @@
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+# Google translate
 
-## Features
+[![pub package](https://img.shields.io/pub/v/flutter_map_marker_cluster.svg)](https://pub.dartlang.org/packages/google_translate) ![travis](https://api.travis-ci.com/lpongetti/google_translate.svg?branch=master)
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Google Translate API for Dart.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Add google_translate to your pubspec:
 
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  google_translate: any # or the latest version on Pub
 ```
 
-## Additional information
+Configure it in you Flutter app.
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(const GoogleTranslate(
+    apiKey: "you api key",
+    sourceLanguage: "en",
+    targetLanguage: "it",
+    child: MyApp(),
+  ));
+}
+```
+
+Use it
+
+```dart
+'example'.translate().then((value) {
+    setState(() {
+        title = value;
+    });
+});
+```
+
+### Run the example
+
+See the `example/` folder for a working example app.
+
+## Supporting Me
+
+A donation through my Ko-Fi page would be infinitly appriciated:
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/lorenzopongetti)
+
+but, if you can't or won't, a star on GitHub and a like on pub.dev would also go a long way!
+
+Every donation gives me fuel to continue my open-source projects and lets me know that I'm doing a good job.
