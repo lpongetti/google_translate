@@ -15,7 +15,7 @@ class GoogleTranslateReopsitory {
 
   Future<String> translate({
     required String text,
-    required String source,
+    String? source,
     required String target,
     required String apiKey,
     required Duration cacheDuration,

@@ -1,33 +1,63 @@
-import 'dart:core';
+import 'package:flutter/cupertino.dart';
 
-import 'package:flutter/material.dart';
+import '../repositories/google_translate_repository.dart';
 
-import 'google_translate_controller.dart';
+class GoogleTranslate {
+  static GoogleTranslate? _singleton;
 
-class GoogleTranslate extends StatelessWidget {
+  final _reopsitory = GoogleTranslateReopsitory();
+
+  // apiKey: google cloud console api key
+  @protected
   final String apiKey;
-  final String sourceLanguage;
-  final String targetLanguage;
-  final Duration cacheDuration;
-  final Widget child;
+  // sourceLanguage: language of you text to translate
+  String? sourceLanguage;
+  // targetLanguage: language of your translated text
+  String targetLanguage;
+  // cacheDuration: duration of cache api
+  Duration cacheDuration;
 
-  const GoogleTranslate({
-    Key? key,
+  // Initialize GoogleTranslateController singleton
+  static GoogleTranslate initialize({
+    required String apiKey,
+    String? sourceLanguage,
+    required String targetLanguage,
+    Duration cacheDuration = const Duration(days: 7),
+  }) {
+    return _singleton = GoogleTranslate._internal(
+      apiKey: apiKey,
+      sourceLanguage: sourceLanguage,
+      targetLanguage: targetLanguage,
+      cacheDuration: cacheDuration,
+    );
+  }
+
+  // Get GoogleTranslateController already initialized
+  factory GoogleTranslate() {
+    assert(_singleton != null);
+    return _singleton!;
+  }
+
+  GoogleTranslate._internal({
     required this.apiKey,
     required this.sourceLanguage,
     required this.targetLanguage,
-    this.cacheDuration = const Duration(days: 7),
-    required this.child,
-  }) : super(key: key);
+    required this.cacheDuration,
+  });
 
-  @override
-  Widget build(BuildContext context) {
-    GoogleTranslateController.init(
+  // Translate your text from source to target language
+  Future<String> translate(
+    String text, {
+    String? sourceLanguage,
+    String? targetLanguage,
+  }) {
+    final source = sourceLanguage ?? this.sourceLanguage;
+    final target = targetLanguage ?? this.targetLanguage;
+    return _reopsitory.translate(
+        text: text,
+        source: source,
+        target: target,
         apiKey: apiKey,
-        sourceLanguage: sourceLanguage,
-        targetLanguage: targetLanguage,
         cacheDuration: cacheDuration);
-
-    return child;
   }
 }

@@ -1,4 +1,4 @@
-import 'package:google_translate/components/google_translate_controller.dart';
+import 'package:google_translate/components/google_translate.dart';
 
 extension Translate on String {
   // Translate your text from source to target language
@@ -6,7 +6,7 @@ extension Translate on String {
     String? sourceLanguage,
     String? targetLanguage,
   }) {
-    return GoogleTranslateController().translate(
+    return GoogleTranslate().translate(
       this,
       sourceLanguage: sourceLanguage,
       targetLanguage: targetLanguage,

@@ -19,12 +19,13 @@ Configure it in you Flutter app.
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const GoogleTranslate(
+  GoogleTranslate.initialize(
     apiKey: "you api key",
     sourceLanguage: "en",
     targetLanguage: "it",
-    child: MyApp(),
-  ));
+  )
+
+  runApp(const MyApp());
 }
 ```
 
@@ -32,6 +33,16 @@ Use it
 
 ```dart
 'example'.translate().then((value) {
+    setState(() {
+        title = value;
+    });
+});
+```
+
+or
+
+```dart
+'esempio'.translate(sourceLanguage: 'it', targetLanguage: 'en').then((value) {
     setState(() {
         title = value;
     });

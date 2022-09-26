@@ -4,12 +4,12 @@ import 'package:google_translate/google_translate.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const GoogleTranslate(
+  GoogleTranslate.initialize(
     apiKey: "AIzaSyDgh0dvmvj4yLGMa4JCJOQURs_KdLqGecw",
-    sourceLanguage: "en",
     targetLanguage: "it",
-    child: MyApp(),
-  ));
+  );
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -36,12 +36,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String title = 'Flutter Demo Home Page';
+  String body = 'prova un altra lingua';
 
   @override
   void initState() {
     title.translate().then((value) {
       setState(() {
         title = value;
+      });
+    });
+
+    body.translate(sourceLanguage: 'it', targetLanguage: 'en').then((value) {
+      setState(() {
+        body = value;
       });
     });
     super.initState();
@@ -52,6 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+      ),
+      body: Center(
+        child: Text(body),
       ),
     );
   }

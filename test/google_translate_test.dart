@@ -3,9 +3,9 @@ import 'package:google_translate/google_translate.dart';
 
 void main() {
   test('addObject', () {
-    final controller = GoogleTranslateController.init(
+    final controller = GoogleTranslate.initialize(
         apiKey: "", sourceLanguage: "en", targetLanguage: "it");
 
-    identical(controller, GoogleTranslateController());
+    identical(controller, GoogleTranslate());
   });
 }
