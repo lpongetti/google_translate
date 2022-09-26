@@ -12,13 +12,13 @@ class GoogleTranslate extends StatelessWidget {
   final Widget child;
 
   const GoogleTranslate({
-    super.key,
+    Key? key,
     required this.apiKey,
     required this.sourceLanguage,
     required this.targetLanguage,
     this.cacheDuration = const Duration(days: 7),
     required this.child,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
