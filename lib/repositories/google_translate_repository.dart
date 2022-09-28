@@ -1,16 +1,40 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache_lts/dio_http_cache_lts.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
+import 'package:path_provider/path_provider.dart';
 
 class GoogleTranslateReopsitory {
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: "https://translation.googleapis.com/language/translate/v2",
+    baseUrl: "https://translation.googleapis.com/",
   ));
+  final completer = Completer();
 
-  GoogleTranslateReopsitory() {
-    // Set cache data for Dio
-    _dio.interceptors.add(DioCacheManager(CacheConfig(
-      baseUrl: "https://translation.googleapis.com/language/translate/v2",
-    )).interceptor);
+  GoogleTranslateReopsitory({
+    required Duration cacheDuration,
+  }) {
+    getTemporaryDirectory().then((cache) {
+      _dio.interceptors.add(
+        DioCacheInterceptor(
+          options: CacheOptions(
+            store: HiveCacheStore(
+              cache.path,
+              hiveBoxName: "google_translate_cache",
+            ),
+            maxStale: cacheDuration,
+            policy: CachePolicy.forceCache,
+            priority: CachePriority.high,
+            hitCacheOnErrorExcept: [401, 404],
+            keyBuilder: (request) {
+              return request.uri.toString();
+            },
+            allowPostMethod: false,
+          ),
+        ),
+      );
+      completer.complete();
+    });
   }
 
   Future<String> translate({
@@ -18,19 +42,22 @@ class GoogleTranslateReopsitory {
     String? source,
     required String target,
     required String apiKey,
-    required Duration cacheDuration,
   }) async {
-    try {
-      Response response = await _dio.post("?key=$apiKey",
-          data: {
-            "q": text,
-            "source": source,
-            "target": target,
-            "format": "text"
-          },
-          options: buildCacheOptions(cacheDuration));
+    await completer.future;
 
-      if (response.statusCode == 200 &&
+    try {
+      Response response = await _dio.get(
+        "language/translate/v2",
+        queryParameters: {
+          "key": apiKey,
+          "q": text,
+          "source": source,
+          "target": target,
+          "format": "text",
+        },
+      );
+
+      if ((response.statusCode == 200 || response.statusCode == 304) &&
           response.data?["data"]?["translations"] != null &&
           response.data["data"]?["translations"]?.length > 0) {
         text = response.data["data"]?["translations"].first["translatedText"];

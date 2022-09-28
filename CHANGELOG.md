@@ -1,3 +1,7 @@
+## 0.0.4 - 26/09/2022
+
+- Hive cache interceptor
+
 ## 0.0.3 - 26/09/2022
 
 - Some fix

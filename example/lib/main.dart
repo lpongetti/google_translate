@@ -5,7 +5,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   GoogleTranslate.initialize(
-    apiKey: "AIzaSyDgh0dvmvj4yLGMa4JCJOQURs_KdLqGecw",
+    apiKey: "AIzaSyA3jW_Fy9eqaeDA-Lh0qNm8LbXjhJW-ay8",
     targetLanguage: "it",
   );
 

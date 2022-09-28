@@ -5,7 +5,7 @@ import '../repositories/google_translate_repository.dart';
 class GoogleTranslate {
   static GoogleTranslate? _singleton;
 
-  final _reopsitory = GoogleTranslateReopsitory();
+  final GoogleTranslateReopsitory _reopsitory;
 
   // apiKey: google cloud console api key
   @protected
@@ -14,8 +14,6 @@ class GoogleTranslate {
   String? sourceLanguage;
   // targetLanguage: language of your translated text
   String targetLanguage;
-  // cacheDuration: duration of cache api
-  Duration cacheDuration;
 
   // Initialize GoogleTranslateController singleton
   static GoogleTranslate initialize({
@@ -25,11 +23,10 @@ class GoogleTranslate {
     Duration cacheDuration = const Duration(days: 7),
   }) {
     return _singleton = GoogleTranslate._internal(
-      apiKey: apiKey,
-      sourceLanguage: sourceLanguage,
-      targetLanguage: targetLanguage,
-      cacheDuration: cacheDuration,
-    );
+        apiKey: apiKey,
+        sourceLanguage: sourceLanguage,
+        targetLanguage: targetLanguage,
+        cacheDuration: cacheDuration);
   }
 
   // Get GoogleTranslateController already initialized
@@ -42,8 +39,8 @@ class GoogleTranslate {
     required this.apiKey,
     required this.sourceLanguage,
     required this.targetLanguage,
-    required this.cacheDuration,
-  });
+    required Duration cacheDuration,
+  }) : _reopsitory = GoogleTranslateReopsitory(cacheDuration: cacheDuration);
 
   // Translate your text from source to target language
   Future<String> translate(
@@ -54,10 +51,10 @@ class GoogleTranslate {
     final source = sourceLanguage ?? this.sourceLanguage;
     final target = targetLanguage ?? this.targetLanguage;
     return _reopsitory.translate(
-        text: text,
-        source: source,
-        target: target,
-        apiKey: apiKey,
-        cacheDuration: cacheDuration);
+      text: text,
+      source: source,
+      target: target,
+      apiKey: apiKey,
+    );
   }
 }
