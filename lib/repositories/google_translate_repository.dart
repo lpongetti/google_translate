@@ -26,9 +26,6 @@ class GoogleTranslateReopsitory {
             policy: CachePolicy.forceCache,
             priority: CachePriority.high,
             hitCacheOnErrorExcept: [401, 404],
-            keyBuilder: (request) {
-              return request.uri.toString();
-            },
             allowPostMethod: false,
           ),
         ),

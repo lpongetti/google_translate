@@ -1,4 +1,8 @@
-## 0.0.4 - 26/09/2022
+## 0.0.5 - 28/09/2022
+
+- Removed custom keyBuilder
+
+## 0.0.4 - 28/09/2022
 
 - Hive cache interceptor
 
