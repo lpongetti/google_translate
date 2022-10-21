@@ -1,6 +1,6 @@
 name: google_translate
 description: Google Translate API for Dart. Dynamically Translate Between Thousands of Languages
-version: 0.0.5
+version: 0.0.6
 
 homepage: https://github.com/lpongetti/google_translate
 

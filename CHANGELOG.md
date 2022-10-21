@@ -1,3 +1,7 @@
+## 0.0.6 - 11/10/2022
+
+- debugPrint when throw error
+
 ## 0.0.5 - 28/09/2022
 
 - Removed custom keyBuilder
